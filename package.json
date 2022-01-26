@@ -1,0 +1,15 @@
+{
+  "name": "font-solution",
+  "version": "1.0.0",
+  "description": "拆分字体包提供前端字体动态加载",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jiake.chen@jyblife.com",
+  "license": "ISC",
+  "devDependencies": {
+    "fonteditor-core": "^2.1.8"
+  }
+}

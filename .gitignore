@@ -1,0 +1,7 @@
+.vscode
+.DS_Store
+logs
+release
+result
+node_modules
+dist
