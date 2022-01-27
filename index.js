@@ -28,13 +28,14 @@ class FontResolve {
       ...defaultConfig,
       ...config,
     };
-    this.currentCHS = this.config.startCHS;
-    this.resolveComplate = false; // 是否结束切分
   }
   /**
    * 初始化font
    */
   initFont() {
+    this.currentCHS = this.config.startCHS;
+    this.resolveComplate = false; // 是否结束切分
+    this.fontCss = ''; // 批量生成font-face
     const { endCHS, pageSize, targetPath, targetType } = this.config;
     woff2.init().then(() => {
       const buffer = fs.readFileSync(targetPath);
@@ -55,8 +56,19 @@ class FontResolve {
         this.writeFontFile(font, subsetMap, 'ttf', fontFileIdx);
         this.writeFontFile(font, subsetMap, 'woff', fontFileIdx);
         this.writeFontFile(font, subsetMap, 'woff2', fontFileIdx);
+
+        const outPath = `./result/${this.config.baseFileName}_${fontFileIdx}_${subsetMap.startCHS}_${subsetMap.endCHS}`;
+        this.fontCss += `@font-face {
+          font-family: '${this.config.baseFileName}';
+          src: url('${outPath}.woff2') format('woff2'),
+            url('${outPath}.woff') format('woff'),
+            url('${outPath}.ttf') format('truetype');
+          unicode-range: U+${subsetMap.startCHS}-${subsetMap.endCHS};
+        }`;
         fontFileIdx++;
       }
+
+      this.createFontCss();
     });
   }
   /**
@@ -93,8 +105,17 @@ class FontResolve {
     );
     return buffer;
   }
+  createFontCss() {
+    // 如果当前目录下没有这个写入内容的文件，那么系统会自动帮我们创建
+    fs.writeFileSync('./font.css', this.fontCss, (err, writeOfContent) => {
+      try {
+        console.log(writeOfContent); // undefined
+      } catch (e) {
+        console.log('写入内容失败', e);
+      }
+    });
+  }
 }
 
 const ff = new FontResolve();
 ff.initFont();
-console.log('拆分导出完成！');
