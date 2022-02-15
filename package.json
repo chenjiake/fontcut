@@ -7,9 +7,16 @@
     "dev": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": {
+    "fontcut": "./lib/common/question.js"
+  },
   "author": "jiake.chen@jyblife.com",
   "license": "ISC",
   "devDependencies": {
     "fonteditor-core": "^2.1.8"
+  },
+  "dependencies": {
+    "commander": "^9.0.0",
+    "inquirer": "^3.3.0"
   }
 }

@@ -2,6 +2,6 @@
 .DS_Store
 logs
 release
-result
+font-pieces
 node_modules
 dist
