@@ -4,6 +4,6 @@ logs
 release
 font-pieces
 font-origin
+font-test
 node_modules
 dist
-./font.css
