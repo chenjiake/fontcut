@@ -3,7 +3,7 @@
 logs
 release
 font-pieces
-font
+font-origin
 node_modules
 dist
 ./font.css
